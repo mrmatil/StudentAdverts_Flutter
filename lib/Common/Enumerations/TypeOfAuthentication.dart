@@ -1,0 +1,4 @@
+enum TypeOfAuthentication{
+  login,
+  register
+}
