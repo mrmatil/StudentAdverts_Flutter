@@ -106,7 +106,7 @@ class LoginWidget extends StatelessWidget{
                   _typedPassword = value;
                 },
               ),
-              type==TypeOfAuthentication.register? retypePassword:null,
+              type==TypeOfAuthentication.register? retypePassword:Text(""),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

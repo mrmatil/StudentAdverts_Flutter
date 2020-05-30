@@ -1,6 +1,11 @@
 
+import 'dart:math';
+
 import 'package:StudentAdverts_Mobile/Common/Enumerations/TypeOfAuthentication.dart';
 import 'package:StudentAdverts_Mobile/Common/Singletons/LoginSingleton.dart';
+import 'package:StudentAdverts_Mobile/GUI/Login/LoginPage.dart';
+import 'package:StudentAdverts_Mobile/Models/UserModel.dart';
+import 'package:StudentAdverts_Mobile/Networking/Authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:StudentAdverts_Mobile/Widgets/LoginWidget.dart';
 
@@ -18,14 +23,23 @@ class RegisterPage extends StatefulWidget{
 }
 
 class _RegisterState extends State<RegisterPage> {
-
   void changeType(){
     print("TypeChanged");
+    Navigator.pop(
+      context,
+      LoginPage()
+    );
   }
 
   void Authenticate(){
     print("Authentication");
     var loginData = LoginSingleton();
+    var userModel = new UserModel();
+    userModel.email = loginData.login;
+    userModel.password = loginData.password;
+    userModel.confirmPassword = loginData.rePassword;
+    Authentication authentication = new Authentication(TypeOfAuthentication.register, userModel);
+    authentication.getUserData();
 
   }
 
