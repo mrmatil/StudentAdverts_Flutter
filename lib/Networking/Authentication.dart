@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:StudentAdverts_Mobile/Common/Enumerations/TypeOfAuthentication.dart';
@@ -10,7 +11,7 @@ class Authentication{
   final TypeOfAuthentication typeOfAuthentication;
   final String baseUrl = "https://studentadverts.azurewebsites.net/";
   final UserModel userModel;
-  final Function(bool isError, String response) callback;
+  final Function(bool isError, String response, String email) callback;
 
 
   Authentication(this.typeOfAuthentication, this.userModel, this.callback);
@@ -45,11 +46,13 @@ class Authentication{
         contentType: Headers.formUrlEncodedContentType
       ));
       print("Response login:" + response.toString());
-      callback(false,response.toString());
+      var jsonTemp = json.decode(response.toString());
+      var key = jsonTemp['access_token'];
+      callback(false,key,userModel.email.toString());
     }
     catch (e){
       print("Login Error:" + e.toString());
-      callback(true,e.toString());
+      callback(true,e.toString(),"");
     }
   }
 
@@ -67,7 +70,7 @@ class Authentication{
     }
     catch (e){
       print("Register Error:" + e.toString());
-      callback(true,e.toString());
+      callback(true,e.toString(),"");
     }
   }
 

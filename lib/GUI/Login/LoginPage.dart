@@ -2,6 +2,7 @@
 import 'dart:math';
 
 import 'package:StudentAdverts_Mobile/Common/Enumerations/TypeOfAuthentication.dart';
+import 'package:StudentAdverts_Mobile/GUI/Adverts/AdvertsPage.dart';
 import 'package:StudentAdverts_Mobile/GUI/Register/RegisterPage.dart';
 import 'package:StudentAdverts_Mobile/Models/UserModel.dart';
 import 'package:StudentAdverts_Mobile/Networking/Authentication.dart';
@@ -40,11 +41,12 @@ class _LoginState extends State<LoginPage> {
     authentication.getUserData();
   }
 
-  void goToAdverts(bool isError, String response){
+  void goToAdverts(bool isError, String response, String email){
     if (isError){
       //TODO: Some kind of alert
     } else{
-
+      Navigator.push(context,
+      MaterialPageRoute(builder: (context)=> new AdvertsPage("234",email)));
     }
   }
 
