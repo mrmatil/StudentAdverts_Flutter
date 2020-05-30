@@ -6,7 +6,7 @@ class AdvertModel{
   int _phone;
   DateTime _dateTime;
   String _description;
-  int _price;
+  double _price;
 
   int get id => _id;
 
@@ -16,9 +16,9 @@ class AdvertModel{
 
   String get title => _title;
 
-  int get price => _price;
+  double get price => _price;
 
-  set price(int value) {
+  set price(double value) {
     _price = value;
   }
 

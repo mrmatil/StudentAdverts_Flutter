@@ -45,9 +45,10 @@ class Authentication{
       }, options: Options(
         contentType: Headers.formUrlEncodedContentType
       ));
-      print("Response login:" + response.toString());
+      print(response);
       var jsonTemp = json.decode(response.toString());
       var key = jsonTemp['access_token'];
+      print("Response login:" + key);
       callback(false,key,userModel.email.toString());
     }
     catch (e){

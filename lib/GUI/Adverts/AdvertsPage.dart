@@ -1,4 +1,5 @@
 import 'package:StudentAdverts_Mobile/Models/AdvertModel.dart';
+import 'package:StudentAdverts_Mobile/Networking/Adverts.dart';
 import 'package:StudentAdverts_Mobile/Widgets/AdvertWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,13 @@ class _AdvertsState extends State<AdvertsPage>{
   }
 
   void getAdverts(String searchedText){
+    Adverts adverts = new Adverts(searchedText, advertsChanged);
+    adverts.getAdverts();
+  }
 
+  void advertsChanged(List<AdvertModel> data){
+    print("DUPA!!!");
+    print(data);
   }
 
   void detailsTapped(int id) {
