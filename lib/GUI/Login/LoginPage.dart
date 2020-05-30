@@ -1,6 +1,7 @@
 
+import 'dart:math';
+
 import 'package:StudentAdverts_Mobile/Common/Enumerations/TypeOfAuthentication.dart';
-import 'package:StudentAdverts_Mobile/Common/Singletons/LoginSingleton.dart';
 import 'package:StudentAdverts_Mobile/GUI/Register/RegisterPage.dart';
 import 'package:StudentAdverts_Mobile/Models/UserModel.dart';
 import 'package:StudentAdverts_Mobile/Networking/Authentication.dart';
@@ -30,14 +31,21 @@ class _LoginState extends State<LoginPage> {
     );
   }
 
-  void Authenticate(){
+  void Authenticate(String email, String password, String rePassword){
     print("Authentication");
-    var loginData = LoginSingleton();
     var userModel = new UserModel();
-    userModel.email = loginData.login;
-    userModel.password = loginData.password;
-    Authentication authentication = new Authentication(TypeOfAuthentication.login, userModel);
+    userModel.email = email;
+    userModel.password = password;
+    Authentication authentication = new Authentication(TypeOfAuthentication.login,userModel, goToAdverts);
     authentication.getUserData();
+  }
+
+  void goToAdverts(bool isError, String response){
+    if (isError){
+      //TODO: Some kind of alert
+    } else{
+
+    }
   }
 
   @override

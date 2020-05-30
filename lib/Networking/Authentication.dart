@@ -3,15 +3,17 @@ import 'dart:io';
 import 'package:StudentAdverts_Mobile/Common/Enumerations/TypeOfAuthentication.dart';
 import 'package:StudentAdverts_Mobile/Models/UserModel.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 class Authentication{
 
   final TypeOfAuthentication typeOfAuthentication;
   final String baseUrl = "https://studentadverts.azurewebsites.net/";
   final UserModel userModel;
+  final Function(bool isError, String response) callback;
 
 
-  Authentication(this.typeOfAuthentication, this.userModel);
+  Authentication(this.typeOfAuthentication, this.userModel, this.callback);
 
   void getUserData() async{
 
@@ -43,9 +45,11 @@ class Authentication{
         contentType: Headers.formUrlEncodedContentType
       ));
       print("Response login:" + response.toString());
+      callback(false,response.toString());
     }
     catch (e){
       print("Login Error:" + e.toString());
+      callback(true,e.toString());
     }
   }
 
@@ -63,6 +67,7 @@ class Authentication{
     }
     catch (e){
       print("Register Error:" + e.toString());
+      callback(true,e.toString());
     }
   }
 

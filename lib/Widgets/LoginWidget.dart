@@ -1,21 +1,13 @@
 import 'package:StudentAdverts_Mobile/Common/Enumerations/TypeOfAuthentication.dart';
-import 'package:StudentAdverts_Mobile/Common/Singletons/LoginSingleton.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-
-class LoginWidgetCallback{
-  String email;
-  String password;
-  String repassword;
-}
 
 class LoginWidget extends StatelessWidget{
   final TypeOfAuthentication type;
   final String title;
   final Color mainColor;
   final Function changeType;
-  final Function authenticate;
+  final Function(String email, String password, String rePassword) authenticate;
   String _typedEmail;
   String _typedPassword;
   String _reTypedPassword;
@@ -27,15 +19,11 @@ class LoginWidget extends StatelessWidget{
       this.authenticate);
 
   _authenticate(){
-    var loginData = LoginSingleton();
-    loginData.login = _typedEmail;
-    loginData.password = _typedPassword;
-    if(type== TypeOfAuthentication.register){
-      loginData.rePassword = _reTypedPassword;
-    } else{
-      loginData.rePassword = "";
-    }
-    authenticate();
+  if( type == TypeOfAuthentication.register){
+    authenticate(_typedEmail,_typedPassword,_reTypedPassword);
+  }else{
+    authenticate(_typedEmail,_typedPassword,"");
+  }
   }
 
 
