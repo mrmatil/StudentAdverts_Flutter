@@ -3,6 +3,7 @@ import 'package:StudentAdverts_Mobile/Networking/Adverts.dart';
 import 'package:StudentAdverts_Mobile/Widgets/AdvertWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 class AdvertsPage extends StatefulWidget{
 
@@ -22,36 +23,30 @@ class _AdvertsState extends State<AdvertsPage>{
 
   final String id;
   final String email;
+  Future<List<AdvertModel>> widgets;
+  String searchedText = "";
 
-  List<AdvertModel> list;
+
 
   _AdvertsState(this.id, this.email){
     getAdverts("");
   }
 
   void getAdverts(String searchedText){
-    Adverts adverts = new Adverts(searchedText, advertsChanged);
-    adverts.getAdverts();
+    Adverts adverts = new Adverts(searchedText);
+    var x = adverts.getAdverts();
+    widgets = x;
   }
 
-  void advertsChanged(List<AdvertModel> data){
-    print("DUPA!!!");
-    print(data);
-  }
 
   void detailsTapped(int id) {
 
   }
 
 
+
   @override
   Widget build(BuildContext context) {
-
-    var x = AdvertModel();
-    x.id = 123;
-    x.title = "DUPA";
-    x.description = "DUPA1";
-    x.price = 2137;
 
     return Scaffold(
       appBar: AppBar(
@@ -98,7 +93,48 @@ class _AdvertsState extends State<AdvertsPage>{
         ),
       ),
       body: Center(
-        child: AdvertWidget(Colors.purple,Colors.white,x,"1234",detailsTapped),
+        child: FutureBuilder<List<AdvertModel>>(
+          future: widgets,
+          builder: (context, snapshot){
+
+            TableRow searchRow = TableRow(
+              children: [
+                TextFormField(
+                  decoration: const InputDecoration(
+                      icon: Icon(Icons.search),
+                      hintText: "Search from adverts",
+                      labelText: "Search: "
+                  ),
+                  onChanged: (String value){
+                    setState(() {
+                      getAdverts(value);
+                    });
+                  },
+                ),
+            ]
+            );
+
+            if(snapshot.hasData){
+              List<TableRow> rows = new List<TableRow>();
+              rows.add(searchRow);
+              for(var z=0;z<snapshot.data.length;z++){
+                rows.add(TableRow(
+                  children: [
+                   AdvertWidget(Colors.purple,Colors.white,snapshot.data[z],id,detailsTapped)
+                  ]
+                ));
+              }
+
+              return SingleChildScrollView(
+                child: Table(
+                  children: rows,
+                ),
+              );
+            } else{
+              return Text("Downloading...");
+            }
+          },
+        ),
       ),
       backgroundColor: Colors.white,
     );

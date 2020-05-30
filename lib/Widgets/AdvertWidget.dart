@@ -27,8 +27,8 @@ class AdvertWidget extends StatelessWidget{
         color: backgroundColor,
         borderRadius: new BorderRadius.all(Radius.circular(20))
       ),
-      height: 150,
-      margin: EdgeInsets.only(left: 10.0, right: 10.0),
+//      height: 250,
+      margin: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 20.0),
       padding: EdgeInsets.all(15.0),
       alignment: Alignment.center,
       child: Column(
