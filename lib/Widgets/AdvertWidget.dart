@@ -25,7 +25,14 @@ class AdvertWidget extends StatelessWidget{
     return Container(
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: new BorderRadius.all(Radius.circular(20))
+        borderRadius: new BorderRadius.all(Radius.circular(20)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3)
+              )]
       ),
 //      height: 250,
       margin: EdgeInsets.only(left: 10.0, right: 10.0, bottom: 20.0),

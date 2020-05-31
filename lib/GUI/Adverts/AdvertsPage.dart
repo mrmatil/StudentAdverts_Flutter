@@ -1,3 +1,5 @@
+import 'package:StudentAdverts_Mobile/Common/Enumerations/TypeOfModification.dart';
+import 'package:StudentAdverts_Mobile/GUI/Details/DetailsPage.dart';
 import 'package:StudentAdverts_Mobile/Models/AdvertModel.dart';
 import 'package:StudentAdverts_Mobile/Networking/Adverts.dart';
 import 'package:StudentAdverts_Mobile/Widgets/AdvertWidget.dart';
@@ -23,6 +25,7 @@ class _AdvertsState extends State<AdvertsPage>{
   final String id;
   final String email;
   Future<List<AdvertModel>> widgets;
+  List<AdvertModel> advertModels;
   String searchedText = "";
 
 
@@ -39,7 +42,13 @@ class _AdvertsState extends State<AdvertsPage>{
 
 
   void detailsTapped(int id) {
-
+    var x = AdvertModel();
+    for (var t=0; t<advertModels.length;t++){
+      if(advertModels[t].id == id){
+        x = advertModels[t];
+      }
+    }
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>new DetailsPage(this.id, email, x, TypeOfModification.modify)));
   }
 
 
@@ -73,11 +82,12 @@ class _AdvertsState extends State<AdvertsPage>{
               ),
             ),
             ListTile(
-              title: Text("My Adverts"),
+              title: Text("Add Adverts"),
               trailing: Icon(Icons.arrow_forward),
               onTap: (){
                 Navigator.of(context).pop();
-
+                Navigator.push(context,
+                  MaterialPageRoute(builder: (context)=> new DetailsPage(id, email, new AdvertModel(), TypeOfModification.add)));
               },
             ),
             ListTile(
@@ -114,6 +124,7 @@ class _AdvertsState extends State<AdvertsPage>{
             );
 
             if(snapshot.hasData){
+              advertModels = snapshot.data;
               List<TableRow> rows = new List<TableRow>();
               rows.add(searchRow);
               for(var z=0;z<snapshot.data.length;z++){
