@@ -1,6 +1,4 @@
 
-import 'dart:math';
-
 import 'package:StudentAdverts_Mobile/Common/Enumerations/TypeOfAuthentication.dart';
 import 'package:StudentAdverts_Mobile/GUI/Adverts/AdvertsPage.dart';
 import 'package:StudentAdverts_Mobile/GUI/Register/RegisterPage.dart';
