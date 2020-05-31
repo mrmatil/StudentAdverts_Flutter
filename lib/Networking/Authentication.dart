@@ -49,7 +49,7 @@ class Authentication{
       var jsonTemp = json.decode(response.toString());
       var key = jsonTemp['access_token'];
       print("Response login:" + key);
-      callback(false,key,userModel.email.toString());
+      callback(false,key.toString(),userModel.email.toString());
     }
     catch (e){
       print("Login Error:" + e.toString());

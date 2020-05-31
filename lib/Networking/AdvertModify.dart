@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:StudentAdverts_Mobile/Common/Enumerations/TypeOfModification.dart';
 import 'package:StudentAdverts_Mobile/Models/AdvertModel.dart';
 import 'package:StudentAdverts_Mobile/Models/AdvertModel.dart';
@@ -12,8 +14,8 @@ class AdvertModify{
   final Function() callback;
 
   AdvertModify(this.typeOfModification, this.advertModel, this.callback, this.id);
-
   void setNewAdvert(){
+    print(id);
     switch(typeOfModification){
       case TypeOfModification.modify:{
         _modifyModel();
@@ -45,7 +47,11 @@ class AdvertModify{
         "description": advertModel.description,
         "price": advertModel.description,
         "picture": "QEA="
-      });
+      }, options: Options(
+          headers: {
+            "Authorization":"Bearer "+id
+          }
+      ));
       print(response);
       callback();
     } catch (e){
@@ -66,7 +72,11 @@ class AdvertModify{
         "description": advertModel.description,
         "price": advertModel.description,
         "picture": "QEA="
-      });
+      }, options: Options(
+          headers: {
+            "Authorization":"Bearer "+id
+          }
+      ));
       print(response);
       callback();
     } catch(e){
@@ -78,7 +88,11 @@ class AdvertModify{
     String _deleteURL = "adverts/DeleteAdvert/"+advertModel.id.toString();
     try{
       var dio = new Dio();
-      Response response = await dio.delete(baseUrl+_deleteURL);
+      Response response = await dio.delete(baseUrl+_deleteURL, options: Options(
+        headers: {
+          "Authorization":"Bearer "+id
+        }
+      ));
       print(response);
       callback();
     } catch (e){
