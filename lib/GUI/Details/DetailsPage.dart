@@ -43,6 +43,7 @@ class _DetailsPage extends State<DetailsPage> {
       _priceController.text = advertModel.price.toString();
     } else{
       advertModel.author = email;
+      advertModel.email = email;
     }
   }
 
@@ -135,7 +136,7 @@ class _DetailsPage extends State<DetailsPage> {
               ),
               onChanged: (String Value) {
                 try{
-                  newAdvertModel.phone = Value as int;
+                  newAdvertModel.phone = int.parse(Value);
                 } catch (e){
                   SimpleAlert alert = new SimpleAlert(context, "Error", "Phone value is not valid");
                   alert.showSimpleDialog();
@@ -151,7 +152,7 @@ class _DetailsPage extends State<DetailsPage> {
               ),
               onChanged: (String Value) {
                 try{
-                  newAdvertModel.price = Value as double;
+                  newAdvertModel.price = double.parse(Value);
                 } catch (e){
                   SimpleAlert alert = new SimpleAlert(context, "Error", "Price value is not valid");
                   alert.showSimpleDialog();
@@ -167,10 +168,11 @@ class _DetailsPage extends State<DetailsPage> {
                   color: Colors.purple,
                   child: modification==TypeOfModification.modify? Text("Update"):Text("Add"),
                   onPressed: (){
+                    print(newAdvertModel.title);
                     if(advertModel.email==email){
                       AdvertModify network = new AdvertModify(modification, newAdvertModel, callback, id);
                       network.setNewAdvert();
-                    } else{
+                    } else if (modification != TypeOfModification.add){
                       SimpleAlert alert = new SimpleAlert(context, "Error", "You are not eligible to change this advert");
                       alert.showSimpleDialog();
                     }
@@ -185,7 +187,7 @@ class _DetailsPage extends State<DetailsPage> {
                     if(advertModel.email == email){
                       if(modification == TypeOfModification.add){
                         Navigator.of(context).pop();
-                      } else{
+                      } else if (modification != TypeOfModification.add){
                         AdvertModify network = new AdvertModify(TypeOfModification.delete, newAdvertModel, callback, id);
                         network.setNewAdvert();
                       }

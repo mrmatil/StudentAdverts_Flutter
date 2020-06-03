@@ -37,11 +37,12 @@ class AdvertModify{
     try{
       var dio = new Dio();
       Response response = await dio.put(baseUrl+_modifyUrl,data: {
+        "id": advertModel.id,
         "title": advertModel.title,
         "author": advertModel.author,
         "email": advertModel.email,
         "phone": advertModel.phone,
-        "dateAndTime": advertModel.dateTime,
+        "dateAndTime": "2020-05-31T00:29:15.3936609+00:00",
         "description": advertModel.description,
         "price": advertModel.price,
         "picture": "QEA="
