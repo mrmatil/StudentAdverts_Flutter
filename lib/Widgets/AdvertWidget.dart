@@ -42,14 +42,19 @@ class AdvertWidget extends StatelessWidget{
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text(advertModel.title, textAlign: TextAlign.center, style: TextStyle(
-            color: fontColor
+            color: fontColor,
+            fontSize: 15.0
           ),),
           Text(advertModel.description, textAlign: TextAlign.left, style: TextStyle(
-            color: fontColor
+            color: fontColor,
+              fontSize: 10.0
           ),),
+          Text(""),
           Text(advertModel.price.toString() + " zł/h", textAlign: TextAlign.right, style: TextStyle(
-            color: fontColor
+            color: fontColor,
+              fontSize: 15.0
           ),),
+          Text(""),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -57,8 +62,9 @@ class AdvertWidget extends StatelessWidget{
                 onPressed: () {
                 detailsCallback(advertModel.id);
                 },
-                textColor: fontColor,
+                textColor: backgroundColor,
                 child: Text("Details"),
+                color: fontColor,
               )
             ],)
 

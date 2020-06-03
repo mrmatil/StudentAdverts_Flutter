@@ -42,6 +42,7 @@ class LoginWidget extends StatelessWidget{
       onChanged: (String value){
         _reTypedPassword = value;
       },
+      obscureText: true,
     );
 
 
@@ -93,6 +94,7 @@ class LoginWidget extends StatelessWidget{
                 onChanged: (String value){
                   _typedPassword = value;
                 },
+                obscureText: true,
               ),
               type==TypeOfAuthentication.register? retypePassword:Text(""),
 
@@ -104,6 +106,7 @@ class LoginWidget extends StatelessWidget{
                       _authenticate();
                     },
                     textColor: Colors.white,
+                    color: Colors.purple,
                     child: type==TypeOfAuthentication.register? Text("Register"):Text("Login"),
                   ),
                   RaisedButton(
@@ -111,6 +114,7 @@ class LoginWidget extends StatelessWidget{
                       changeType();
                     },
                     textColor: Colors.white,
+                    color: Colors.purple,
                     child: type==TypeOfAuthentication.register? Text("Back to login"):Text("I don't have account"),
                   )
                 ],

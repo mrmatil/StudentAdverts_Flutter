@@ -6,6 +6,7 @@ import 'package:StudentAdverts_Mobile/GUI/Adverts/AdvertsPage.dart';
 import 'package:StudentAdverts_Mobile/GUI/Login/LoginPage.dart';
 import 'package:StudentAdverts_Mobile/Models/UserModel.dart';
 import 'package:StudentAdverts_Mobile/Networking/Authentication.dart';
+import 'package:StudentAdverts_Mobile/Widgets/Alert.dart';
 import 'package:flutter/material.dart';
 import 'package:StudentAdverts_Mobile/Widgets/LoginWidget.dart';
 
@@ -43,7 +44,8 @@ class _RegisterState extends State<RegisterPage> {
 
   void goToAdverts(bool isError, String response, String email){
     if (isError){
-      //TODO: Some kind of alert
+      SimpleAlert alert = new SimpleAlert(context, "Error", response);
+      alert.showSimpleDialog();
     } else{
       Navigator.push(context,
           MaterialPageRoute(builder: (context)=> new AdvertsPage(response, email)));

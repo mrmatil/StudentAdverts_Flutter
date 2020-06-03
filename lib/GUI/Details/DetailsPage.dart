@@ -1,6 +1,7 @@
 import 'package:StudentAdverts_Mobile/Common/Enumerations/TypeOfModification.dart';
 import 'package:StudentAdverts_Mobile/Models/AdvertModel.dart';
 import 'package:StudentAdverts_Mobile/Networking/AdvertModify.dart';
+import 'package:StudentAdverts_Mobile/Widgets/Alert.dart';
 import 'package:flutter/material.dart';
 
 class DetailsPage extends StatefulWidget{
@@ -136,7 +137,8 @@ class _DetailsPage extends State<DetailsPage> {
                 try{
                   newAdvertModel.phone = Value as int;
                 } catch (e){
-                  //TODO: Add Exception
+                  SimpleAlert alert = new SimpleAlert(context, "Error", "Phone value is not valid");
+                  alert.showSimpleDialog();
                 }
               },
               controller: _phoneController,
@@ -151,7 +153,8 @@ class _DetailsPage extends State<DetailsPage> {
                 try{
                   newAdvertModel.price = Value as double;
                 } catch (e){
-                  //TODO: Add Exception
+                  SimpleAlert alert = new SimpleAlert(context, "Error", "Price value is not valid");
+                  alert.showSimpleDialog();
                 }
               },
               controller: _priceController,
@@ -161,22 +164,25 @@ class _DetailsPage extends State<DetailsPage> {
               children: [
                 RaisedButton(
                   textColor: Colors.white,
+                  color: Colors.purple,
                   child: modification==TypeOfModification.modify? Text("Update"):Text("Add"),
                   onPressed: (){
-                    if(/*advertModel.email==email*/ true /* TODO: Change that */){
+                    if(advertModel.email==email){
                       AdvertModify network = new AdvertModify(modification, newAdvertModel, callback, id);
                       network.setNewAdvert();
                     } else{
-                      //TODO: Alert that we are not eligible for that
+                      SimpleAlert alert = new SimpleAlert(context, "Error", "You are not eligible to change this advert");
+                      alert.showSimpleDialog();
                     }
 
                   },
                 ),
                 RaisedButton(
                   textColor: Colors.white,
+                  color: Colors.purple,
                   child: modification==TypeOfModification.modify? Text("Delete"):Text("Cancel"),
                   onPressed: (){
-                    if(/*advertModel.email == email*/ true /* TODO: Change that */){
+                    if(advertModel.email == email){
                       if(modification == TypeOfModification.add){
                         Navigator.of(context).pop();
                       } else{
@@ -184,7 +190,8 @@ class _DetailsPage extends State<DetailsPage> {
                         network.setNewAdvert();
                       }
                     } else{
-                      //TODO: Alert that we are not eligible for that
+                      SimpleAlert alert = new SimpleAlert(context, "Error", "You are not eligible to delete this advert");
+                      alert.showSimpleDialog();
                     }
                   },
                 )
